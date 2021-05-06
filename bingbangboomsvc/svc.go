@@ -3,15 +3,16 @@ package bingbangboomsvc
 type svc struct {
 }
 
-func (s svc) GenerateDomain(id int64) ([]Domain, error) {
+func NewSvc() Svc {
+	return &svc{}
+}
+func (s svc) GenerateMapping(id int64) ([]Domain, error) {
 	var ds []Domain
-	switch {
-	case id%3 == 0:
+	if id%3 == 0 {
 		ds = append(ds, Domain_A)
-	case id%5 == 0:
+	}
+	if id%5 == 0 {
 		ds = append(ds, Domain_B)
-	default:
-		ds = []Domain{}
 	}
 	return ds, nil
 }
