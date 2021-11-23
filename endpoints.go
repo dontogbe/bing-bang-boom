@@ -4,9 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"github.com/dontogbe/bing-bang-boom/bingbangboomsvc"
 	"github.com/go-kit/kit/endpoint"
+	"log"
 	"net/http"
+
+	"github.com/dontogbe/bing-bang-boom/bingbangboomsvc"
 )
 
 type serviceEndpoints struct {
@@ -44,7 +46,9 @@ type mappingResponse struct {
 func DecodeMappingRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var request mappingRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		return nil, err
+		log.Println(err)
+		iErr := errors.New("Please provide numeric ID")
+		return nil, iErr
 	}
 	return request, nil
 }
